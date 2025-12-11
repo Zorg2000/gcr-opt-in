@@ -5,7 +5,8 @@
 </head>
 <body>
 <h1>Thank You for Your Order!</h1>
-<p>Redirecting you back to your order status page...</p>
+<p>Please wait a moment while we process your review request, or click the button below to opt-in to a Google survey about your experience. 
+  Redirecting you back to your order status page...</p>
 
 <!-- BEGIN GCR Opt-In Code -->
 <script src="apis.google.com" async defer></script> 
@@ -35,10 +36,10 @@
           "opt_in_style": "CENTER_DIALOG"
         });
 
-        // Redirect back to Shopify after a short delay (e.g., 3 seconds)
+        // Redirect back to Shopify after a short delay (e.g., 5 seconds)
         setTimeout(function() {
           window.location.href = returnUrl;
-        }, 3000); // Redirects after 3 seconds
+        }, 5000); // Redirects after 5 seconds
 
       });
     } else {
@@ -50,4 +51,5 @@
 
 </body>
 </html>
+
 
