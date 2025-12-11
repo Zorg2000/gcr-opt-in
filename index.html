@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Google Customer Reviews Opt-In</title>
+</head>
+<body>
+<h1>Thank You for Your Order!</h1>
+<p>Please wait a moment while we process your review request, or click the button below to opt-in to a Google survey about your experience.</p>
+
+<!-- BEGIN GCR Opt-In Code -->
+<script src="apis.google.com" async defer></script>
+<script>
+  // Function to get a URL parameter by name
+  function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results.replace(/\+/g, ' '));
+  };
+
+  window.onLoadCallback = function() {
+    // Extract parameters passed from Shopify URL
+    var orderId = getUrlParameter('orderid');
+    var email = getUrlParameter('email');
+    var deliveryDate = getUrlParameter('dd');
+    var currency = getUrlParameter('currency');
+
+    if (orderId && email && deliveryDate && currency) {
+      // Parameters are present, initiate the GCR survey
+      window.gapi.load('surveyoptin', function() {
+        window.gapi.surveyoptin.render({
+          "merchant_id": 396091698, // **UPDATED MERCHANT ID**
+          "order_id": orderId,
+          "email": email,
+          "delivery_country": "NZ", // Use a dynamic country code if needed
+          "estimated_delivery_date": deliveryDate,
+          "opt_in_style": "CENTER_DIALOG"
+        });
+      });
+    } else {
+      // Parameters missing or page accessed directly, show a message
+      document.getElementById('manual-opt-in').style.display = 'block';
+    }
+  };
+</script>
+<!-- END GCR Opt-In Code -->
+
+<div id="manual-opt-in" style="display: none;">
+    <p>We couldn't automatically load the survey. Please check back later or contact us if you have feedback.</p>
+</div>
+
+</body>
+</html>
